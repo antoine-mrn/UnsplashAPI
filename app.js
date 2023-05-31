@@ -1,16 +1,31 @@
 const ACCESS_KEY = "IJtvbFBiIKcscxwffJWNFxPfX9z4IoF85YoMirQxaQ0"
 let pageIndex = 1
+let research = "random"
 
-async function getImage() {
+const form = document.querySelector("form")
+let searchInput = document.getElementById("search")
+
+form.addEventListener("submit", look)
+
+function look(e) {
+    e.preventDefault()
+    pageIndex = 1
+    imagesContainer.textContent = ""
+    research = searchInput.value
+    populateUI(research)
+}
+
+async function getImage(research) {
     try {
-        const response = await fetch(`https://api.unsplash.com/search/photos?page=${pageIndex}&query=dog&client_id=${ACCESS_KEY}`)
+        const response = await fetch(`https://api.unsplash.com/search/photos?page=${pageIndex}&query=${research}&client_id=${ACCESS_KEY}`)
+        console.log(pageIndex)
 
         if(!response.ok) {
             throw new Error(`${response.status}`)
         }
 
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
 
         return data.results
     }
@@ -23,7 +38,7 @@ const imagesContainer = document.querySelector(".images-container")
 
 async function populateUI() {
 
-    const images = await getImage()
+    const images = await getImage(research)
 
     images.forEach(image => {
         const newCard = document.createElement("div")
