@@ -5,9 +5,9 @@ let research = "random"
 const form = document.querySelector("form")
 let searchInput = document.getElementById("search")
 
-form.addEventListener("submit", look)
+form.addEventListener("submit", researchImage)
 
-function look(e) {
+function researchImage(e) {
     e.preventDefault()
     pageIndex = 1
     imagesContainer.textContent = ""
@@ -15,22 +15,21 @@ function look(e) {
     populateUI(research)
 }
 
+const errorMessage = document.querySelector(".error-message")
+
 async function getImage(research) {
     try {
         const response = await fetch(`https://api.unsplash.com/search/photos?page=${pageIndex}&query=${research}&client_id=${ACCESS_KEY}`)
-        console.log(pageIndex)
 
         if(!response.ok) {
             throw new Error(`${response.status}`)
         }
 
-        const data = await response.json();
-        // console.log(data)
-
+        const data = await response.json()
         return data.results
     }
     catch (error) {
-        console.log(error)
+        errorMessage.textContent = error
     }
 }
 
@@ -39,6 +38,7 @@ const imagesContainer = document.querySelector(".images-container")
 async function populateUI() {
 
     const images = await getImage(research)
+    if(!images.length) return errorMessage.textContent = "Whoops, aucune image trouvé avec cette recherche"
 
     images.forEach(image => {
         const newCard = document.createElement("div")
@@ -60,7 +60,7 @@ observer.observe(observerBlock)
 
 function handleIntersect(entries) {
     if(entries[0].isIntersecting) {
-        pageIndex++
         populateUI()
+        pageIndex++
     }
 }
