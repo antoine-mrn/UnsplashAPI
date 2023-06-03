@@ -12,12 +12,12 @@ function researchImage(e) {
     pageIndex = 1
     imagesContainer.textContent = ""
     research = searchInput.value
-    populateUI(research)
+    populateUI()
 }
 
 const errorMessage = document.querySelector(".error-message")
 
-async function getImage(research) {
+async function getImage() {
     try {
         const response = await fetch(`https://api.unsplash.com/search/photos?page=${pageIndex}&query=${research}&client_id=${ACCESS_KEY}`)
 
@@ -45,7 +45,7 @@ async function populateUI() {
         newCard.innerHTML =
         `
         <div class="card">
-            <img class="card-image" src="${image.urls.full}" alt="${image.alt_description}" />
+            <img class="card-image" src="${image.urls.regular}" alt="${image.alt_description}" />
             <p class="card-credit">${image.user.name}</p>
         </div>
         `
@@ -55,12 +55,12 @@ async function populateUI() {
 
 const observerBlock = document.querySelector(".observer-block")
 
-const observer = new IntersectionObserver(handleIntersect, option = {rootMargin: "100px"})
+const observer = new IntersectionObserver(handleIntersect, option = {rootMargin: "250px"})
 observer.observe(observerBlock)
 
 function handleIntersect(entries) {
     if(entries[0].isIntersecting) {
-        populateUI()
         pageIndex++
+        populateUI()
     }
 }

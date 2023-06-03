@@ -17,14 +17,23 @@
       <img src="./images/arrow.svg" alt="arrow" />
     </button>
 
-    <h1>Clone <span>Unsplash</span></h1>
+    <header>
+      <h1>Clone <span>Unsplash</span></h1>
+
+      <form>
+        <label for="search">
+          <img src="/images/loupe.svg" alt="loupe" />
+        </label>
+        <input
+          type="text"
+          name="input-search"
+          id="search"
+          placeholder="Recherchez une image"
+        />
+      </form>
+    </header>
 
     <div class="container">
-      <form>
-        <label for="search">Recherchez une image</label>
-        <input type="text" name="input-search" id="search" />
-      </form>
-
       <p class="error-message"></p>
 
       <div class="images-container"></div>
