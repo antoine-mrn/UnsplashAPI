@@ -55,7 +55,7 @@ async function populateUI() {
 
 const observerBlock = document.querySelector(".observer-block")
 
-const observer = new IntersectionObserver(handleIntersect, option = {rootMargin: "250px"})
+const observer = new IntersectionObserver(handleIntersect, option = {rootMargin: "350px"})
 observer.observe(observerBlock)
 
 function handleIntersect(entries) {
@@ -64,3 +64,13 @@ function handleIntersect(entries) {
         populateUI()
     }
 }
+
+const scrollToTop = document.querySelector(".scroll-to-top")
+
+scrollToTop.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+    })
+})

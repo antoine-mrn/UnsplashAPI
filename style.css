@@ -46,12 +46,11 @@ h1 span {
 }
 
 form {
-  margin: 65px auto;
+  margin: 50px auto;
   max-width: 930px;
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top: 10px;
 }
 
 label img {
@@ -89,6 +88,7 @@ form input {
   width: 300px;
   height: 300px;
   position: relative;
+  overflow: hidden;
 }
 
 .card-image {
@@ -97,8 +97,20 @@ form input {
   object-fit: cover;
 }
 
+.card:hover .card-image {
+  filter: brightness(77%);
+}
+
 .card-credit {
   position: absolute;
-  bottom: 10px;
+  opacity: 0;
+  bottom: -20px;
   left: 10px;
+  color: #f1f1f1;
+  transition: opacity 0.1s ease-in;
+}
+
+.card:hover .card-credit {
+  bottom: 10px;
+  opacity: 1;
 }
