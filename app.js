@@ -9,8 +9,9 @@ form.addEventListener("submit", researchImage)
 
 function researchImage(e) {
     e.preventDefault()
-    pageIndex = 1
     imagesContainer.textContent = ""
+    errorMessage.textContent = ""
+    pageIndex = 1
     research = searchInput.value
     populateUI()
 }
@@ -19,7 +20,7 @@ const errorMessage = document.querySelector(".error-message")
 
 async function getImage() {
     try {
-        const response = await fetch(`https://api.unsplash.com/search/photos?page=${pageIndex}&query=${research}&client_id=${ACCESS_KEY}`)
+        const response = await fetch(`https://api.unsplash.com/search/photos?page=${pageIndex}&query=${research}&per_page=30&client_id=${ACCESS_KEY}`)
 
         if(!response.ok) {
             throw new Error(`${response.status}`)
@@ -55,7 +56,7 @@ async function populateUI() {
 
 const observerBlock = document.querySelector(".observer-block")
 
-const observer = new IntersectionObserver(handleIntersect, option = {rootMargin: "350px"})
+const observer = new IntersectionObserver(handleIntersect, option = {rootMargin: "50%"})
 observer.observe(observerBlock)
 
 function handleIntersect(entries) {
